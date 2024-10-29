@@ -22,3 +22,6 @@ class FIFOCache(BaseCaching):
             print('DISCARD: {}'.format(first_item_key))
 
         self.cache_data[key] = item
+    def get(self, key):
+        """Return item """
+        return self.cache_data.get(key)
