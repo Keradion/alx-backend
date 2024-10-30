@@ -16,9 +16,8 @@ class LIFOCache(BaseCaching):
         # Determine If the cache is full first.
         if len(self.cache_data) == BaseCaching.MAX_ITEMS:
             # Remove first item
-            first_item_key, item = self.cache_data.popitem()
+            first_item_key = self.cache_data.pop(key)
             print('DISCARD: {}'.format(first_item_key))
-
         self.cache_data[key] = item
 
     def get(self, key):
