@@ -71,28 +71,19 @@ class DLL:
                 self.size -= 1
                 break  # Stop after removing the node
             current = current.next
-
-    def traverse_fw(self):
-        """Traverse the list forward and print nodes"""
-        if self.head is None:
-            print('No node')
-            return 
-        current = self.head
-        while current:
-            print(f'{current.key}:{current.value}')
-            current = current.next
- 
     def length(self):
-        """"""
+        """Return lenght of a list"""
         return self.size
 
 class LRUCache(BaseCaching):
-    """"""
+    """LRU CACHE ALGORITHM """
     def __init__(self):
+        """Initializer"""
         super().__init__()
         self.ll = DLL()   # Double linked list instance 
                      # use this to perform operation with the dll
     def put(self, key, item):
+        """put an item in to the cache"""
         if key is None or item is None:
             return
         # key exist in cache no issue with cache size since its replacement
@@ -109,7 +100,7 @@ class LRUCache(BaseCaching):
 
              
     def get(self, key):
-        """"""
+        """Get an item from the cache"""
         if key is None or key not in self.cache_data:
             return None
         
