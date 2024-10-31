@@ -76,7 +76,7 @@ class DLL:
 
 
 class MRUCache(BaseCaching):
-    """LRU CACHE ALGORITHM """
+    """MRU CACHE ALGORITHM """
     def __init__(self):
         """Initializer"""
         super().__init__()
@@ -90,12 +90,11 @@ class MRUCache(BaseCaching):
         if key in self.cache_data:
             self.ll.remove(key)      # Remove the key
         else:
-            if self.ll.length()  >= self.MAX_ITEMS:  # check the cache
+            if self.ll.length() >= self.MAX_ITEMS:
                 node_key = self.ll.remove_head()
-                self.ll.append(key, item)  # append the key and value at the front
+                self.ll.append(key, item)  # append the key
                 self.cache_data.pop(node_key)
                 print('DISCARD: {}'.format(node_key))
-        
         self.ll.append(key, item)   # Bring the item to MRU side in the dll
         self.cache_data[key] = item  # update the value in the dict
 
