@@ -16,9 +16,8 @@ class LIFOCache(BaseCaching):
         self.cache_data[key] = item
         
         if len(self.cache_data)  > BaseCaching.MAX_ITEMS:
-            # Remove first item
-            first_item_key = self.cache_data.pop(key)
-            print('DISCARD: {}'.format(first_item_key))
+            value = self.cache_data.pop()
+            print('DISCARD: {}'.format(self.c))
 
     def get(self, key):
         """Return item """

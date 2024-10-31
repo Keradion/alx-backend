@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" class LRUCache that inherits from BaseCaching and is a caching system."""
+""" class MRUCache that inherits from BaseCaching and is a caching system."""
 BaseCaching = __import__('base_caching').BaseCaching
 
 
@@ -32,18 +32,18 @@ class DLL:
             self.head = new_node  # Update the head to the new node
         self.size += 1
 
-    def remove_tail(self):
+    def remove_head(self):
         """Remove the last node from the list"""
-        node_key = self.tail.key
+        node_key = self.head.key
 
-        if self.tail is None:  # If list is empty
+        if self.head is None:  # If list is empty
             pass
         if self.head == self.tail:  # Only one node
             self.head = None
             self.tail = None
         else:
-            self.tail = self.tail.prev
-            self.tail.next = None
+            self.head = self.head.next
+            self.head.prev = None
         self.size -= 1
         return node_key
 
@@ -75,7 +75,7 @@ class DLL:
         return self.size
 
 
-class LRUCache(BaseCaching):
+class MRUCache(BaseCaching):
     """LRU CACHE ALGORITHM """
     def __init__(self):
         """Initializer"""
@@ -86,16 +86,17 @@ class LRUCache(BaseCaching):
         """put an item in to the cache"""
         if key is None or item is None:
             return
-        # key exist in cache no issue with cache size since its replacement
+
         if key in self.cache_data:
             self.ll.remove(key)      # Remove the key
-            self.ll.append(key, item)   # Bring the item to MRU side in the dll
         else:
-            self.ll.append(key, item)  # append the key and value at the front
-            if self.ll.length() > self.MAX_ITEMS:  # check the cache
-                node_key = self.ll.remove_tail()
+            if self.ll.length()  >= self.MAX_ITEMS:  # check the cache
+                node_key = self.ll.remove_head()
+                self.ll.append(key, item)  # append the key and value at the front
                 self.cache_data.pop(node_key)
                 print('DISCARD: {}'.format(node_key))
+        
+        self.ll.append(key, item)   # Bring the item to MRU side in the dll
         self.cache_data[key] = item  # update the value in the dict
 
     def get(self, key):
