@@ -23,6 +23,7 @@ def get_locale():
     """Determine the best match from our supported languages."""
     return request.accept_langauges.best_match(app.config['LANGUAGES'])
 
+
 @app.route('/')
 def index():
     """ Render a template """
