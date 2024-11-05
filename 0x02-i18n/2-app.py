@@ -17,10 +17,11 @@ app.config.from_object(Config)
 
 babel = Babel(app)
 
+
 @babel.localeselector
 def get_locale():
     """Determine the best match from our supported languages."""
-    return request.accept_langauge.best_match(app.config['LANGUAGES'])
+    return request.accept_langauges.best_match(app.config['LANGUAGES'])
 
 @app.route('/')
 def index():
