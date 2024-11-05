@@ -14,7 +14,9 @@ class Config:
 
 
 app.config.from_object(Config)
+
 babel = Babel(app)
+
 
 @app.route('/')
 def index():
