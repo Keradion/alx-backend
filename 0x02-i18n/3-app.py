@@ -26,7 +26,7 @@ def get_locale():
 
 @app.route('/')
 def index():
-    """ Render a template """
+    """ Render a template that display a text"""
     title = _("home_title")
     header = _("home_header")
 
