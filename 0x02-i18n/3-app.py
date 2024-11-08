@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Basic flask app setup """
+""" Basic flask app setup to implement i18n """
 from flask import Flask, render_template, request
 from flask_babel import Babel, _
 
@@ -27,10 +27,7 @@ def get_locale():
 @app.route('/')
 def index():
     """ Render a template that display a text"""
-    title = _("home_title")
-    header = _("home_header")
-
-    return render_template('3-index.html', title=title, header=header)
+    return render_template('3-index.html')
 
 
 if __name__ == '__main__':
