@@ -4,10 +4,16 @@
    The module helps to force locale based on the url
    parameter locale passed during http  request
 """
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 from flask_babel import Babel, _
 
-app = Flask(__name__)
+# To emulate a user login system
+users = {
+    1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
+    2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
+    3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
+    4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
+}
 
 
 class Config:
@@ -16,10 +22,31 @@ class Config:
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
-
+app = Flask(__name__)
 app.config.from_object(Config)
 
 babel = Babel(app)
+
+
+@app.before_request
+def before_request():
+    """
+       call get_user to find a user if any set it and
+       a global on flask.g.user
+    """
+    user = get_user()
+    g.user = user
+
+def get_user():
+    """Returns a user dictionary of None if the user id 
+       cannot be found or login_as was not passed in the url
+    """
+    # Fetch user_id from url parameter login_as
+    user_id = request.args.get('login_as')
+    if user_id:
+        return users.get(int(user_id))
+    else:
+        return None
 
 
 @babel.localeselector
@@ -38,7 +65,7 @@ def get_locale():
 @app.route('/')
 def index():
     """ Render a template that display a text"""
-    return render_template('4-index.html')
+    return render_template('5-index.html')
 
 
 if __name__ == '__main__':
