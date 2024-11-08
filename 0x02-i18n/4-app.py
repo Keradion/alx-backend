@@ -23,18 +23,17 @@ def get_locale():
     """Force particular locale from locale parameter in the URLs."""
     # Fetch the value of locale parameter
     locale = request.args.get('locale')
-
     # Return locale if it founds in supported locale
     if locale in app.config['LANGUAGES']:
         return locale
     # Default behavior
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    return app.config['BABEL_DEFAULT_LOCALE']
 
 
 @app.route('/')
 def index():
     """ Render a template that display a text"""
-    return render_template('3-index.html')
+    return render_template('4-index.html')
 
 
 if __name__ == '__main__':
