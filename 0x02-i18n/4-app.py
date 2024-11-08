@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-""" Basic flask app setup to implement i18n """
+""" 
+   Basic flask app setup to implement i18n 
+   The module helps to force locale based on the url
+   parameter locale passed during http  request
+"""
 from flask import Flask, render_template, request
 from flask_babel import Babel, _
 
