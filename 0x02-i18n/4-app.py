@@ -22,12 +22,13 @@ babel = Babel(app)
 def get_locale():
     """Force particular locale from locale parameter in the URLs."""
     # Fetch the value of locale parameter
-    locale = request.args.get('locale')
+    lang = request.args.get('locale')
+
     # Return locale if it founds in supported locale
-    if locale in app.config['LANGUAGES']:
-        return locale
+    if lang in app.config['LANGUAGES']:
+        return lang
     # Default behavior
-    return app.config['BABEL_DEFAULT_LOCALE']
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
